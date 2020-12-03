@@ -1,0 +1,105 @@
+component-card {
+  --background-darker: var(--ion-color-step-200, #e9edf3);
+
+  --text-dark: var(--ion-color-step-850, #27323f);
+  --text-darker: var(--ion-color-step-950, #0e151f);
+
+  --text-light: var(--ion-color-step-650, #5b708b);
+  --text-lighter: var(--ion-color-step-550, #73849a);
+  --text-lightest: var(--ion-color-step-300, #b2becd);
+}
+
+component-card ion-card ion-card-subtitle {
+  color: var(--text-lighter);
+}
+
+component-card ion-card ion-card-title {
+  color: var(--text-darker);
+  font-size: medium;
+  height: 1.5em;
+}
+
+component-card ion-card ion-card-title:hover{
+  text-decoration: underline;
+}
+
+component-card ion-card ion-card-content ion-grid ion-label h1 {
+  color: var(--text-dark);
+}
+
+/* Action Card */
+
+component-card .action-card ion-grid {
+  --ion-grid-column-padding: 0;
+
+  padding: 10px 0 0;
+}
+
+component-card .action-card ion-col:last-child {
+  text-align: right;
+}
+
+.md component-card .action-card .button-clear {
+  --background-hover: currentColor;
+  --background-focused: currentColor;
+}
+
+component-card .action-card .button-clear {
+  --color: #c6cede;
+  --border-radius: 50%;
+  --padding-top: 0;
+  --padding-end: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+
+  margin: 0;
+
+  height: 36px;
+  width: 36px;
+}
+
+.action-card {
+  @media (max-width: 576px) and (min-width: 0) {
+    .card-image {
+      max-width: 99%;
+      min-width: 99%;
+      pointer-events: none;
+      height: 30vw;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  @media (max-width: 768px) and (min-width: 576px) {
+    .card-image {
+      max-width: 99%;
+      min-width: 99%;
+      pointer-events: none;
+      height: 30vw;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  @media (max-width: 992px) and (min-width: 768px) {
+    .card-image {
+      max-width: 99%;
+      min-width: 99%;
+      pointer-events: none;
+      height: 30vw;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .card-image {
+      max-width: 99%;
+      min-width: 99%;
+      pointer-events: none;
+      height: 20vw;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+}
