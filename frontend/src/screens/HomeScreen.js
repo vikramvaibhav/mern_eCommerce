@@ -1,16 +1,32 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonRow } from '@ionic/react'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonGrid,
+  IonRow
+} from '@ionic/react'
 import { useParams } from 'react-router'
 import NavHeader from '../components/Header/NavHeader'
 import Product from '../components/Product'
-
-import products from '../products'
+import axios from 'axios'
 
 import './HomeScreen.scss'
 
 const Home = () => {
 
   const { name } = useParams()
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get('/api/products')
+      setProducts(data)
+    }
+    fetchProducts()
+  }, [])
 
   return (
     <IonPage>

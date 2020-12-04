@@ -7,22 +7,24 @@ import {
     IonButton,
     IonIcon
 } from '@ionic/react'
-import { share } from 'ionicons/icons'
+import { cart } from 'ionicons/icons'
 
-export const BackNavHeader = () => {
+const BackNavHeader = () => {
     const shareSession = () => { }
     return (
         <IonHeader>
             <IonToolbar>
                 <IonButtons slot="start">
-                    <IonBackButton defaultHref="/tabs/schedule"></IonBackButton>
+                    <IonBackButton defaultHref="/tabs/home"></IonBackButton>
                 </IonButtons>
                 <IonButtons slot="end">
                     <IonButton onClick={() => shareSession}>
-                        <IonIcon slot="icon-only" icon={share}></IonIcon>
+                        <IonIcon slot="icon-only" icon={cart}></IonIcon>
                     </IonButton>
                 </IonButtons>
             </IonToolbar>
         </IonHeader>
     )
 }
+
+export default BackNavHeader

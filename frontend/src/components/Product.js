@@ -19,7 +19,6 @@ import Rating from './Rating'
 const Product = ({ product }) => {
     return (
         <IonCol sizeXs="6" sizeSm="6" sizeMd="4" sizelg="4" sizeXl="4" >
-
             <component-card>
                 <IonCard className="action-card">
                     <Link to={`/product/${product._id}`}>

@@ -1,0 +1,22 @@
+{
+  "name": "mern_ecommerce",
+  "version": "1.0.0",
+  "description": "MERN eCommerce",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vikramvaibhav/mern_eCommerce.git"
+  },
+  "author": "Vikram Vaibhav",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vikramvaibhav/mern_eCommerce/issues"
+  },
+  "homepage": "https://github.com/vikramvaibhav/mern_eCommerce#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

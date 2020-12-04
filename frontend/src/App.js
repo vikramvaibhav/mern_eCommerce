@@ -24,6 +24,7 @@ import './theme/variables.css'
 
 import Menu from './components/Menu'
 import HomeScreen from './screens/HomeScreen'
+import ProductScreen from './screens/ProductScreen'
 import MainTabs from './screens/MainTabs'
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
           <IonRouterOutlet id="main">
             <Route path="/tabs" render={() => <MainTabs />} />
             <Route path="/page/:name" component={HomeScreen} exact />
+            <Route path="/product/:id" component={ProductScreen} />
             <Redirect from="/" to="/tabs/home" exact />
           </IonRouterOutlet>
         </IonSplitPane>
