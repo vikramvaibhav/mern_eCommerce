@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {
   IonContent,
   IonHeader,
@@ -8,25 +8,29 @@ import {
   IonGrid,
   IonRow
 } from '@ionic/react'
-import { useParams } from 'react-router'
 import NavHeader from '../components/Header/NavHeader'
 import Product from '../components/Product'
-import axios from 'axios'
-
+import Message from '../components/Message'
+import Loader from '../components/Loader'
 import './HomeScreen.scss'
 
-const Home = () => {
+import { useParams } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { listProducts } from '../redux'
+
+const HomeScreen = () => {
 
   const { name } = useParams()
-  const [products, setProducts] = useState([])
+
+  const dispatch = useDispatch()
+
+  const productList = useSelector((state) => state.productList)
+  const { loading, error, products } = productList
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('/api/products')
-      setProducts(data)
-    }
-    fetchProducts()
-  }, [])
+    dispatch(listProducts())
+  }, [dispatch])
+
 
   return (
     <IonPage>
@@ -42,10 +46,12 @@ const Home = () => {
         </IonHeader>
         <IonGrid style={{ marginBottom: '4rem' }}>
           <IonRow>
-            {
-              products.map(product => (
-                <Product key={product._id} product={product} />
-              ))
+            {loading ? <Loader message={'Loading...'} /> : error ? <Message color='danger'>{error}</Message>
+              : (
+                products.map(product => (
+                  <Product key={product._id} product={product} />
+                ))
+              )
             }
           </IonRow>
         </IonGrid>
@@ -54,4 +60,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomeScreen

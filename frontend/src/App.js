@@ -26,6 +26,7 @@ import Menu from './components/Menu'
 import HomeScreen from './screens/HomeScreen'
 import ProductScreen from './screens/ProductScreen'
 import MainTabs from './screens/MainTabs'
+import CartScreen from './screens/CartScreen'
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
             <Route path="/tabs" render={() => <MainTabs />} />
             <Route path="/page/:name" component={HomeScreen} exact />
             <Route path="/product/:id" component={ProductScreen} />
+            <Route path="/cart/:id?" component={CartScreen} />
             <Redirect from="/" to="/tabs/home" exact />
           </IonRouterOutlet>
         </IonSplitPane>
