@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import {
     IonHeader,
     IonToolbar,
@@ -19,11 +18,9 @@ const NavHeader = ({ name }) => {
                 </IonButtons>
                 <IonTitle>{name.charAt(0).toUpperCase() + name.slice(1)}</IonTitle>
                 <IonButtons slot="end">
-                    <Link to={`/cart`}>
-                        <IonButton>
-                            <IonIcon slot="icon-only" icon={cart}></IonIcon>
-                        </IonButton>
-                    </Link>
+                    <IonButton routerLink={`/cart`}>
+                        <IonIcon slot="icon-only" icon={cart}></IonIcon>
+                    </IonButton>
                 </IonButtons>
             </IonToolbar>
         </IonHeader>

@@ -12,7 +12,6 @@ import NavHeader from '../components/Header/NavHeader'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import './HomeScreen.scss'
 
 import { useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
@@ -33,7 +32,7 @@ const HomeScreen = () => {
 
 
   return (
-    <IonPage>
+    <IonPage id="product-list">
       {/* Navbar */}
       <NavHeader name={name} />
 

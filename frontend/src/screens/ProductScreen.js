@@ -55,10 +55,10 @@ const ProductScreen = ({ history, match }) => {
                         </IonHeader>
                         <IonGrid>
                             <IonRow>
-                                <IonCol size="6">
-                                    <img src={product.image} alt={product.name} />
+                                <IonCol size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                                    <img style={{ borderRadius: "4px" }} src={product.image} alt={product.name} />
                                 </IonCol>
-                                <IonCol size="4">
+                                <IonCol size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
                                     <IonList>
                                         <IonItem>
                                             <IonLabel>
@@ -83,7 +83,7 @@ const ProductScreen = ({ history, match }) => {
                                                 <IonLabel color="primary">
                                                     Quantity:
                                                 </IonLabel>
-                                                <IonSelect value={qty} onIonChange={(e) => setQty(e.target.value)} placeholder="Select Quantity">
+                                                <IonSelect value={qty} onIonFocus={(e) => setQty(e.target.value)}>
                                                     {
                                                         [...Array(product.countInStock).keys()].map(x => (
                                                             <IonSelectOption key={x + 1} value={x + 1}>{x + 1}</IonSelectOption>
@@ -103,6 +103,10 @@ const ProductScreen = ({ history, match }) => {
                                                 size="medium"
                                                 color="dark"
                                                 onClick={addToCartHandler}
+                                                // onClick={e => {
+                                                //     e.preventDefault();
+                                                //     history.push(`/cart/${match.params.id}?qty=${qty}`)
+                                                // }}
                                                 disabled={product.countInStock === 0}
                                             >
                                                 Add to Cart

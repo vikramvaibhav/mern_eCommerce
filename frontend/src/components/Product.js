@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import {
     IonButton,
     IonCard,
@@ -10,6 +9,7 @@ import {
     IonCol,
     IonGrid,
     IonLabel,
+    IonRouterLink,
     IonRow,
 } from '@ionic/react'
 
@@ -19,40 +19,36 @@ import Rating from './Rating'
 const Product = ({ product }) => {
     return (
         <IonCol sizeXs="6" sizeSm="6" sizeMd="4" sizelg="4" sizeXl="4" >
-            <component-card>
-                <IonCard className="action-card">
-                    <Link to={`/product/${product._id}`}>
-                        <img className="header-img" src={product.image} alt={product.name} />
-                    </Link>
-                    <IonCardHeader>
-                        <IonCardSubtitle>{product.category}</IonCardSubtitle>
-                        <Link to={`/product/${product._id}`} style={{ textDecoration: 'none' }}>
-                            <IonCardTitle>{product.name}</IonCardTitle>
-                        </Link>
-                    </IonCardHeader>
-                    <IonCardContent>
-                        <IonGrid>
-                            <IonRow>
+            <IonCard className="product-card">
+                <IonRouterLink routerLink={`/product/${product._id}`}>
+                    <img src={product.image} alt={product.name} />
+                </IonRouterLink>
+                <IonCardHeader>
+                    <IonCardSubtitle>{product.category}</IonCardSubtitle>
+                    <IonRouterLink to={`/product/${product._id}`} style={{ textDecoration: 'none' }}>
+                        <IonCardTitle>{product.name}</IonCardTitle>
+                    </IonRouterLink>
+                </IonCardHeader>
+                <IonCardContent>
+                    <IonGrid>
+                        <IonRow>
+                            <IonLabel>
+                                <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                            </IonLabel>
+                        </IonRow>
+                        <IonRow>
+                            <IonCol>
                                 <IonLabel>
-                                    <Rating value={product.rating} text={`${product.numReviews} reviews`} />
+                                    <h1>${product.price}</h1>
                                 </IonLabel>
-                            </IonRow>
-                            <IonRow>
-                                <IonCol>
-                                    <IonLabel>
-                                        <h1>${product.price}</h1>
-                                    </IonLabel>
-                                </IonCol>
-                                <IonCol>
-                                    <Link to={`/product/${product._id}`}>
-                                        <IonButton size="small">view</IonButton>
-                                    </Link>
-                                </IonCol>
-                            </IonRow>
-                        </IonGrid>
-                    </IonCardContent>
-                </IonCard>
-            </component-card>
+                            </IonCol>
+                            <IonCol>
+                                <IonButton routerLink={`/product/${product._id}`} size="small">view</IonButton>
+                            </IonCol>
+                        </IonRow>
+                    </IonGrid>
+                </IonCardContent>
+            </IonCard>
         </IonCol >
     )
 }

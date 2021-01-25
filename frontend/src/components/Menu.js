@@ -7,59 +7,94 @@ import {
     IonListHeader,
     IonMenu,
     IonMenuToggle,
-    IonNote
+    IonThumbnail
 } from '@ionic/react'
 
 import React from 'react'
-import { useLocation } from 'react-router-dom'
-import { mailOutline, starOutline, cartOutline, searchOutline } from 'ionicons/icons'
+import { logout } from '../redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation } from 'react-router'
+import { mailOutline, starOutline, cartOutline, searchOutline, logInOutline, helpOutline, personAddOutline, personOutline, logOutOutline } from 'ionicons/icons'
 import './Menu.css'
 
-const appPages = [
-    {
-        title: 'Home',
-        path: '/tabs/home',
-        icon: mailOutline
-    },
-    {
-        title: 'Offers',
-        path: '/tabs/offers',
-        icon: starOutline
-    },
-    {
-        title: 'Search',
-        path: '/tabs/search',
-        icon: searchOutline
-    },
-    {
-        title: 'Cart',
-        path: '/tabs/cart',
-        icon: cartOutline
-    },
-]
+const routes = {
+    appPages: [
+        { title: 'Home', path: '/tabs/home', icon: mailOutline },
+        { title: 'Offers', path: '/tabs/offers', icon: starOutline },
+        { title: 'Search', path: '/tabs/search', icon: searchOutline },
+        { title: 'Cart', path: '/tabs/cart', icon: cartOutline },
+    ],
+    loggedInPages: [
+        { title: 'Profile', path: '/profile', icon: personOutline },
+        { title: 'Support', path: '/support', icon: helpOutline },
+    ],
+    loggedOutPages: [
+        { title: 'Login', path: '/login', icon: logInOutline },
+        { title: 'Support', path: '/support', icon: helpOutline },
+        { title: 'Signup', path: '/signup', icon: personAddOutline }
+    ]
+}
 
-const Menu = () => {
+const Menu = ({ history }) => {
     const location = useLocation()
+
+    const dispatch = useDispatch()
+
+    const userLogin = useSelector((state) => state.userLogin)
+    const { userInfo } = userLogin
+
+    const logoutHandler = () => {
+        dispatch(logout())
+    }
+
+    function renderlistItems(list) {
+        return list
+            .filter(route => !!route.path)
+            .map(p => (
+                <IonMenuToggle key={p.title} auto-hide="false">
+                    <IonItem className={location.pathname === p.path ? 'selected' : ''} routerLink={p.path} routerDirection="none" lines="none" detail={false}>
+                        <IonIcon slot="start" icon={p.icon} />
+                        <IonLabel>{p.title}</IonLabel>
+                    </IonItem>
+                </IonMenuToggle>
+            ))
+    }
 
     return (
         <IonMenu contentId="main" type="overlay">
-            <IonContent>
-                <IonList id="inbox-list">
-                    <IonListHeader>eCommerce</IonListHeader>
-                    <IonNote>MERN eCommerce App</IonNote>
-                    {appPages.map((appPage, index) => {
-                        return (
-                            <IonMenuToggle key={index} autoHide={false}>
-                                <IonItem className={location.pathname === appPage.path ? 'selected' : ''} routerLink={appPage.path} routerDirection="none" lines="none" detail={false}>
-                                    <IonIcon slot="start" icon={appPage.icon} />
-                                    <IonLabel>{appPage.title}</IonLabel>
-                                </IonItem>
-                            </IonMenuToggle>
+            <IonContent forceOverscroll={false}>
+                <IonList id="inbox-list" lines="none">
+                    {userInfo ? (
+                        <IonItem>
+                            <IonThumbnail slot="start">
+                                <img style={{ borderRadius: "4px" }} src="/images/logo-untappd.png" alt="ima" />
+                            </IonThumbnail>
+                            <IonLabel>
+                                <h1>{userInfo.name}</h1>
+                                <p>{userInfo.email}</p>
+                            </IonLabel>
+                        </IonItem>
+                    ) : (
+                            <>
+                                <IonListHeader>MERN eCommerce App</IonListHeader>
+                            </>
                         )
-                    })}
+                    }
+                    {renderlistItems(routes.appPages)}
+                </IonList>
+                <IonList id="inbox-list" lines="none">
+                    <IonListHeader>Account</IonListHeader>
+                    {userInfo ? renderlistItems(routes.loggedInPages) : renderlistItems(routes.loggedOutPages)}
+                    {userInfo && (
+                        <IonItem button onClick={logoutHandler} lines="none">
+                            <IonIcon slot="start" icon={logOutOutline} />
+                            <IonLabel>Logout</IonLabel>
+                        </IonItem>
+                    )
+                    }
                 </IonList>
             </IonContent>
-        </IonMenu>
+        </IonMenu >
     )
 }
 

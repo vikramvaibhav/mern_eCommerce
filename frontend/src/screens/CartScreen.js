@@ -16,9 +16,9 @@ import {
     IonCardTitle,
     IonCardSubtitle,
     IonCardContent,
-    IonItemDivider
+    IonRouterLink
 } from '@ionic/react'
-import { Link } from 'react-router-dom'
+
 import { useDispatch, useSelector } from 'react-redux'
 import BackNavHeader from '../components/Header/BackNavHeader'
 import Message from '../components/Message'
@@ -59,33 +59,31 @@ const CartScreen = ({ match, location, history }) => {
                     {cartItems.length === 0
                         ? <Message color="primary">Your cart is empty</Message>
                         : <IonRow>
-                            <IonCol className="ion-padding" size="8">
+                            <IonCol size-xl="8" size-lg="12" size-md="12" size-sm="12" size-xs="12">
                                 {cartItems.map((item) => (
                                     <IonItem key={item.product} lines="full">
                                         <IonRow>
-                                            <IonCol>
-                                                <img src={item.image} alt={item.name} />
+                                            <IonCol size-sm="4" size-xs="4">
+                                                <img style={{ borderRadius: "4px" }} src={item.image} alt={item.name} />
                                             </IonCol>
-                                            <IonCol>
+                                            <IonCol size-sm="3" size-xs="3">
                                                 <IonLabel>
-                                                    <Link to={`/product/${item.product}`}>
+                                                    <IonRouterLink style={{ color: "#000000", textDecoration: "none" }} routerLink={`/product/${item.product}`}>
                                                         <h5 className="ion-text-wrap">{item.name}</h5>
-                                                    </Link>
+                                                    </IonRouterLink>
                                                 </IonLabel>
-                                            </IonCol>
-                                            <IonCol>
                                                 <IonLabel>
                                                     <p>${item.price}</p>
                                                 </IonLabel>
                                             </IonCol>
-                                            <IonCol>
+                                            <IonCol size-sm="3" size-xs="3">
                                                 <IonSelect
                                                     value={item.qty}
-                                                    onChange={(e) =>
+                                                    onIonFocus={(e) =>
                                                         dispatch(
                                                             addToCart(item.product, Number(e.target.value))
                                                         )
-                                                    } placeholder="Select Quantity">
+                                                    }>
                                                     {
                                                         [...Array(item.countInStock).keys()].map((x) => (
                                                             <IonSelectOption key={x + 1} value={x + 1}>{x + 1}</IonSelectOption>
@@ -93,9 +91,9 @@ const CartScreen = ({ match, location, history }) => {
                                                     }
                                                 </IonSelect>
                                             </IonCol>
-                                            <IonCol>
-                                                <IonButton color="danger" onClick={() => removeFromCartHandler(item.product)}>
-                                                    <IonIcon slot="icon-only" icon={trashOutline} />
+                                            <IonCol size-sm="2" size-xs="2">
+                                                <IonButton fill="clear" onClick={() => removeFromCartHandler(item.product)}>
+                                                    <IonIcon color="danger" slot="icon-only" icon={trashOutline} />
                                                 </IonButton>
                                             </IonCol>
                                         </IonRow>
@@ -103,8 +101,8 @@ const CartScreen = ({ match, location, history }) => {
                                 ))
                                 }
                             </IonCol>
-                            <IonCol size="4">
-                                <IonCard>
+                            <IonCol size-xl="4" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                                <IonCard className="ion-no-padding">
                                     <IonCardHeader>
                                         <IonCardTitle>
                                             <h3>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items</h3>
@@ -112,7 +110,6 @@ const CartScreen = ({ match, location, history }) => {
                                         <IonCardSubtitle>
                                             <h5>${cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}</h5>
                                         </IonCardSubtitle>
-                                        <IonItemDivider />
                                     </IonCardHeader>
                                     <IonCardContent>
                                         <IonButton
@@ -120,6 +117,10 @@ const CartScreen = ({ match, location, history }) => {
                                             size="default"
                                             disabled={cartItems.length === 0}
                                             onClick={checkoutHandler}
+                                            // onClick={e => {
+                                            //     e.preventDefault();
+                                            //     history.push('/login?redirect=shipping')
+                                            // }}
                                             expand="full"
                                         >
                                             Proceed To Checkout

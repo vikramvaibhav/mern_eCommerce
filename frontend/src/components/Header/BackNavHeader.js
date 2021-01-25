@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import {
     IonHeader,
     IonToolbar,
@@ -11,7 +10,6 @@ import {
 } from '@ionic/react'
 import { cart } from 'ionicons/icons'
 const BackNavHeader = ({ name }) => {
-    const shareSession = () => { }
 
     return (
         <IonHeader>
@@ -23,11 +21,9 @@ const BackNavHeader = ({ name }) => {
                     <IonTitle IonTitle > {name.charAt(0).toUpperCase() + name.slice(1)}</IonTitle>
                     : name !== "Cart" &&
                     <IonButtons slot="end">
-                        <Link to={`/cart`}>
-                            <IonButton onClick={() => shareSession}>
-                                <IonIcon slot="icon-only" icon={cart}></IonIcon>
-                            </IonButton>
-                        </Link>
+                        <IonButton routerLink={`/cart`}>
+                            <IonIcon slot="icon-only" icon={cart}></IonIcon>
+                        </IonButton>
                     </IonButtons>
                 }
             </IonToolbar>
